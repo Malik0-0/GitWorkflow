@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  createdAt  DateTime @default(now())
+  supabaseId String?  @unique
+
+  entries  Entry[]
+  insights WeeklyInsight[]
+}
+
+model Entry {
+  id        String   @id @default(cuid())
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // RAW & TIDIED versions
+  contentRaw    String?
+  contentTidied String?
+
+  titleRaw    String?
+  titleTidied String?
+  titleManual Boolean @default(false)
+
+  // Mood system
+  moodLabel  MoodLabel? // joyful, happy, calm, neutral, tired, sad, anxious, stressed, frustrated, angry
+  moodScore  Float? // 1.0–10.0
+  moodManual Boolean    @default(false)
+
+  // Category system
+  category       CategoryLabel? // 12 categories
+  categoryManual Boolean        @default(false)
+
+  // Date system (cleaned, improved)
+  dayDate    DateTime? // always: user > AI > createdAt
+  dateManual Boolean   @default(false)
+
+  // Week grouping
+  weekIndex Int? // e.g. 202548 (YYYY + ISO week num)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tidiedAt DateTime?
+
+  @@index([userId])
+  @@index([weekIndex])
+  @@index([dayDate])
+}
+
+model WeeklyInsight {
+  id           String   @id @default(cuid())
+  userId       String
+  weekStart    String
+  weekEnd      String
+  generatedAt  DateTime @default(now())
+  content      String
+  shortSummary String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, weekStart], name: "userId_weekStart")
+}
+
+enum MoodLabel {
+  joyful
+  happy
+  calm
+  neutral
+  tired
+  sad
+  anxious
+  stressed
+  frustrated
+  angry
+}
+
+enum CategoryLabel {
+  personal
+  relationships
+  health
+  habits
+  work
+  study
+  creativity
+  goals
+  reflection
+  finance
+  daily
+  other
+}

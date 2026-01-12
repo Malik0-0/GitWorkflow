@@ -1,0 +1,253 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   CleanNote - globals.css
+   - Light / Dark theme variables
+   - Component utility styles (cards, inputs, buttons, header)
+   - Avoids hard-coded "bg-slate-900" that prevented theming
+   ========================================================= */
+
+/* -------------------------
+   Color variables (light/dark)
+   ------------------------- */
+:root {
+  --bg: #ffffff;
+  --text: #0f172a;
+  --card: #f2f2f2;
+  --muted: #6b7280;
+  --accent: #10b981;
+}
+
+.dark {
+  --bg: #000b25;
+  --text: #f8fafc;
+  --card: #0b1220;
+  --muted: #94a3b8;
+  --accent: #10b981;
+}
+
+/* -------------------------
+   Base body & layout
+   ------------------------- */
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* -------------------------
+   Container
+   ------------------------- */
+.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+
+/* -------------------------
+   Header
+   ------------------------- */
+header {
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--header-border);
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+/* header links */
+header a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 120ms;
+}
+
+header a:hover {
+  color: var(--text);
+}
+
+/* -------------------------
+   Card system
+   ------------------------- */
+.card {
+  background: var(--card);
+  border: 1px solid rgba(15,23,42,0.04);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+/* subtle "glass" variant (for mock hero card) */
+.card--glass {
+  background: var(--glass);
+}
+
+/* -------------------------
+   Inputs & form controls
+   ------------------------- */
+.input {
+  background: transparent;
+  border: 1px solid rgba(15,23,42,0.06);
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  width: 100%;
+}
+
+/* focus state */
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.08);
+  /* subtle focus ring */
+  border-color: rgba(16, 185, 129, 0.6);
+}
+
+/* -------------------------
+   Buttons
+   ------------------------- */
+/* primary button */
+.btn-primary {
+  background-color: var(--accent);
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(5, 118, 83, 0.12);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(5, 118, 83, 0.14);
+}
+
+/* secondary / outline */
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+}
+
+.btn-secondary {
+  background-color: var(--accent);
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.6rem 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(5, 118, 83, 0.12);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  border: none;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(5, 118, 83, 0.14);
+}
+
+/* danger */
+.btn-danger {
+  background: #dc2626;
+  color: white;
+  padding: 0.6rem 0.6rem;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+/* -------------------------
+   Typography helpers
+   ------------------------- */
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text);
+}
+
+/* muted text helper */
+.text-muted {
+  color: var(--muted);
+}
+
+/* small helper */
+small {
+  color: var(--muted);
+}
+
+/* -------------------------
+   Utility: link-muted
+   ------------------------- */
+.link-muted {
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+/* -------------------------
+   Layout helpers & responsive tweaks
+   ------------------------- */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* center forms */
+.form-center {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 420px;
+}
+
+/* spacing helpers retained if you use them in components */
+.space-y-4>*+* {
+  margin-top: 1rem;
+}
+
+/* -------------------------
+   Prevent previous Tailwind overrides
+   - If you had direct @apply bg-slate-900 or text-slate-100 use variables instead
+   ------------------------- */
+/* No explicit @apply that forces dark text/background here */
+
+/* -------------------------
+   Small screens adjustments
+   ------------------------- */
+@media (min-width: 1024px) {
+  .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+  .card {
+    padding: 0.75rem;
+    border-radius: 10px;
+  }
+
+  /* .btn-primary {
+    width: 100%;
+  } */
+}
+
+/* -------------------------
+   Accessibility focus outlines for keyboard users
+   ------------------------- */
+:focus {
+  outline: 2px solid rgba(16, 185, 129, 0.12);
+  outline-offset: 2px;
+}
+
+/* -------------------------
+   End of file
+   ------------------------- */
