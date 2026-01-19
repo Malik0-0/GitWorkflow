@@ -1,1 +1,2 @@
 // Feature: Example feature
+// Fix: Example bug fix
