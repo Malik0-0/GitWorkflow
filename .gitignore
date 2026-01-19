@@ -58,3 +58,8 @@ Desktop.ini
 # Prisma
 # Note: schema.prisma and migrations should be committed
 # Only ignore generated client if it's in a separate location
+
+# Backup files
+*.backup
+*.bak
+*~
